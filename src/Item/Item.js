@@ -46,6 +46,9 @@ const Item = ({
           <p className="descricao">
             {descricao}
           </p>
+          <p className="descricao">
+            Responsável: {responsavel !== ' ' ? responsavel : "Não informado"}.
+          </p>
           <button className="button" onClick={handleDelete}><img src={check} alt="Check Icon"></img>Marcar como resolvido</button>
         </div>
       ) : null}
