@@ -2,13 +2,14 @@ import React from "react";
 import { GlobalContext } from "../GlobalContext/GlobalContext";
 import HeaderMain from "../HeaderMain/HeaderMain";
 import Item from "../Item/Item";
+import './Main.css';
 
 const Main = () => {
   const { crs } = React.useContext(GlobalContext);
 
   return (
-    <div>
-      <h1>CRS Controller | Santri</h1>
+    <div className="main">
+      <h1>Controle de CRS - PHC & Santri</h1>
       <HeaderMain />
       {crs ? (
         crs.map((crs, index) => (

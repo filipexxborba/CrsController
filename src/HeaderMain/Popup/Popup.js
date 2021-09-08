@@ -1,5 +1,6 @@
 import React from "react";
 import { GlobalContext } from "../../GlobalContext/GlobalContext";
+import './Form.css'
 
 const Popup = () => {
   const { crs, teste } = React.useContext(GlobalContext);
@@ -60,6 +61,7 @@ const Popup = () => {
   }
   return (
     <form>
+      <label htmlFor="nucleo:">Núcleo:</label>
       <select
         id="nucleo"
         value={select}
@@ -68,6 +70,7 @@ const Popup = () => {
         <option value="Compras">Compras</option>
         <option value="Contábil">Contábil</option>
         <option value="Financeiro">Financeiro</option>
+        <option value="Fiscal">Fiscal</option>
         <option value="Técnico">Técnico</option>
         <option value="Vendas e Logística">Vendas e Logística</option>
         <option value="Pós Implantação">Pós Implantação</option>
@@ -113,7 +116,7 @@ const Popup = () => {
         onChange={handleChange}
       ></input>
 
-      <button disabled={disabled} onClick={handleClick}>
+      <button className="buttonSave" disabled={disabled} onClick={handleClick}>
         Salvar
       </button>
     </form>
