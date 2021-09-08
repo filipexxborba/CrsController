@@ -19,7 +19,7 @@ const Item = ({
   const [showDesc, setShowDesc] = React.useState(false);
   function handleClick() {
     setShowDesc(!showDesc);
-    currentCrs.current.classList.add('active');
+    currentCrs.current.classList.toggle('active');
   }
   function handleDelete(event) {
       event.preventDefault();

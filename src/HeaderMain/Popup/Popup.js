@@ -110,7 +110,7 @@ const Popup = () => {
         Número da CRS:
       </label>
       <input
-        type="text"
+        type="number"
         id="numeroCrs"
         value={form.numeroCrs}
         onChange={handleChange}

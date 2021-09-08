@@ -32,10 +32,12 @@
     position: absolute;
     top: 32px;
     right: 16px;
+    transition: .1s all ease-in;
 }
 
-.controlButton .active{
-    background: red !important;
+.active{
+    transform: rotate(180deg);
+    
 }
 
 .card + .card{
@@ -46,7 +48,7 @@
     font-weight: 300;
     font-size: 14px;
     color: #717171;
-    margin: 32px 0;
+    margin: 16px 0;
     max-width: 60ch;
 }
 
