@@ -44,7 +44,7 @@ const Popup = () => {
         descricao: form.descricao,
         responsavel: form.responsavel,
         numeroCrs: form.numeroCrs,
-        data: today.toLocaleDateString(),
+        data: today,
       };
       data.push(tempData);
 
@@ -60,7 +60,7 @@ const Popup = () => {
     }
   }
   return (
-    <form>
+    <form className="container">
       <label htmlFor="nucleo:">Núcleo:</label>
       <select
         id="nucleo"

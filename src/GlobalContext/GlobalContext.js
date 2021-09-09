@@ -4,6 +4,7 @@ export const GlobalContext = React.createContext();
 
 export const GlobalStorage = ({ children }) => {
   const [crs, setCrs] = React.useState(null);
+  const [showCad, setShowCad] = React.useState(false)
   function teste(arg) {
     setCrs(arg);
   }
@@ -15,7 +16,7 @@ export const GlobalStorage = ({ children }) => {
     }
   }, []);
   return (
-    <GlobalContext.Provider value={{ crs, teste }}>
+    <GlobalContext.Provider value={{ crs, teste, showCad, setShowCad }}>
       {children}
     </GlobalContext.Provider>
   );
