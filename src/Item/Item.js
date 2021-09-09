@@ -4,6 +4,9 @@ import show from '../assets/show.png'
 import circle from '../assets/circle.png'
 import { GlobalContext } from "../GlobalContext/GlobalContext";
 import './Item.css';
+import moment from 'moment';
+
+
 
 const Item = ({
   index,
@@ -15,12 +18,17 @@ const Item = ({
   data,
 }) => {
   const currentCrs = React.useRef();
+  const currentCircle = React.useRef();
   const { teste } = React.useContext(GlobalContext);
   const [showDesc, setShowDesc] = React.useState(false);
+
+  // Mostrar/Esconder descrição
   function handleClick() {
     setShowDesc(!showDesc);
     currentCrs.current.classList.toggle('active');
   }
+
+  // Marcar como resolvido
   function handleDelete(event) {
       event.preventDefault();
       let data = JSON.parse(localStorage.getItem('ListaCRSs'));
@@ -30,10 +38,20 @@ const Item = ({
       teste(data);
       window.location.reload();
   }
+
+  // Valida o tempo do chamado e mostra nos círculos
+  moment().format('DD MM YYYY');
+  let today = moment(new Date());
+  let dataCrs = moment(data);
+  const duration = moment.duration(today.diff(dataCrs));
+  const days = duration.asDays();
+  console.log(days);
+  
+
   return (
     <div className="card">
       <div className="card__title" onClick={handleClick}>
-        <img src={circle} alt="Imagem do núcleo"></img>
+        <div className="circle" ref={currentCircle}></div>
         <div className="card__title__text">
           <h2>{numeroCrs} - {motivo}.</h2>
           <h3>{nucleo} - {data}</h3>

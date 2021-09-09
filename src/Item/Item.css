@@ -67,3 +67,10 @@
 .button img{
     margin-right: 8px;
 }
+
+.circle{
+    width: 75px;
+    height: 75px;
+    background: gray;
+    border-radius: 50%;
+}
