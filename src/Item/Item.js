@@ -1,9 +1,11 @@
 import React from "react";
 import check from "../assets/check.png";
 import show from "../assets/show.png";
+import tool from "../assets/tools.png";
 import { GlobalContext } from "../GlobalContext/GlobalContext";
 import "./Item.css";
 import moment from "moment";
+import EditingPopup from "../EditingPopUp/EditingPopup";
 
 const Item = ({
   index,
@@ -18,6 +20,7 @@ const Item = ({
   const currentCircle = React.useRef();
   const { teste } = React.useContext(GlobalContext);
   const [showDesc, setShowDesc] = React.useState(false);
+  const [editing, setEditing] = React.useState(false);
 
   // Mostrar/Esconder descrição
   function handleClick() {
@@ -34,6 +37,11 @@ const Item = ({
     localStorage.setItem("ListaCRSs", JSON.stringify(data));
     teste(data);
     window.location.reload();
+  }
+
+  // Abrir a tela o popup de edição passando o index;
+  function handleEdit() {
+    setEditing(!editing);
   }
 
   // Valida o tempo do chamado e mostra nos círculos
@@ -55,36 +63,46 @@ const Item = ({
   }, [days]);
 
   return (
-    <div className="card container">
-      <div className="card__title" onClick={handleClick}>
-        <div className="circle" ref={currentCircle}></div>
-        <div className="card__title__text">
-          <h2>
-            {numeroCrs} - {motivo}.
-          </h2>
-          <h3>
-            {nucleo} - {moment(data).format("DD/MM/YYYY")}
-          </h3>
+    <>
+      {!editing ? (
+        <div className="card container">
+          <div className="card__title" onClick={handleClick}>
+            <div className="circle" ref={currentCircle}></div>
+            <div className="card__title__text">
+              <h2>
+                {numeroCrs} - {motivo}.
+              </h2>
+              <h3>
+                {nucleo} - {moment(data).format("DD/MM/YYYY")}
+              </h3>
+            </div>
+            <img
+              className="controlButton"
+              src={show}
+              alt="Show Icon"
+              ref={currentCrs}
+            ></img>
+          </div>
+          {showDesc ? (
+            <div>
+              <p className="descricao">{descricao}</p>
+              <p className="descricao">
+                Responsável:{" "}
+                {responsavel !== " " ? responsavel : "Não informado"}.
+              </p>
+              <div className="container-button">
+                <button className="button" onClick={handleDelete}>
+                  <img src={check} alt="Check Icon"></img>Marcar como resolvido
+                </button>
+                <button className="button" onClick={handleEdit}>
+                  <img src={tool} alt="Check Icon"></img>Editar chamado
+                </button>
+              </div>
+            </div>
+          ) : null}
         </div>
-        <img
-          className="controlButton"
-          src={show}
-          alt="Show Icon"
-          ref={currentCrs}
-        ></img>
-      </div>
-      {showDesc ? (
-        <div>
-          <p className="descricao">{descricao}</p>
-          <p className="descricao">
-            Responsável: {responsavel !== " " ? responsavel : "Não informado"}.
-          </p>
-          <button className="button" onClick={handleDelete}>
-            <img src={check} alt="Check Icon"></img>Marcar como resolvido
-          </button>
-        </div>
-      ) : null}
-    </div>
+      ) : <EditingPopup index={index} />}
+    </>
   );
 };
 
