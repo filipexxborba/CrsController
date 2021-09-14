@@ -2,10 +2,13 @@ import React from "react";
 import check from "../assets/check.png";
 import show from "../assets/show.png";
 import tool from "../assets/tools.png";
+import add from "../assets/add.png";
 import { GlobalContext } from "../GlobalContext/GlobalContext";
 import "./Item.css";
 import moment from "moment";
 import EditingPopup from "../EditingPopUp/EditingPopup";
+import ObservacaoList from "../ObservacaoList/ObservacaoList";
+import ObsCadastro from "../ObsCadastro/ObsCadastro";
 
 const Item = ({
   index,
@@ -21,6 +24,8 @@ const Item = ({
   const { teste } = React.useContext(GlobalContext);
   const [showDesc, setShowDesc] = React.useState(false);
   const [editing, setEditing] = React.useState(false);
+  const [observacoes, setObservacoes] = React.useState(null);
+  const [showCadObs, setShowCadObs] = React.useState(false);
 
   // Mostrar/Esconder descrição
   function handleClick() {
@@ -42,6 +47,15 @@ const Item = ({
   // Abrir a tela o popup de edição passando o index;
   function handleEdit() {
     setEditing(!editing);
+  }
+
+  // Abrir observações
+  function handleObservacao() {
+    setObservacoes(!observacoes);
+  }
+
+  function handleAddObs() {
+    setShowCadObs(!showCadObs);
   }
 
   // Valida o tempo do chamado e mostra nos círculos
@@ -90,18 +104,39 @@ const Item = ({
                 Responsável:{" "}
                 {responsavel !== " " ? responsavel : "Não informado"}.
               </p>
-              <div className="container-button">
-                <button className="button" onClick={handleDelete}>
-                  <img src={check} alt="Check Icon"></img>Marcar como resolvido
-                </button>
-                <button className="button" onClick={handleEdit}>
-                  <img src={tool} alt="Check Icon"></img>Editar chamado
-                </button>
-              </div>
+              <h3 onClick={handleObservacao}>Observações:</h3>
+              {!observacoes ? (
+                <ObservacaoList index={index} />
+              ) : (
+                <p className="descricao">Não existe observação.</p>
+              )}
+              {!observacoes ? (
+                <div className="container-button">
+                  <button className="button" onClick={handleDelete}>
+                    <img src={check} alt="Check Icon"></img>Marcar como
+                    resolvido
+                  </button>
+                  <button className="button" onClick={handleEdit}>
+                    <img src={tool} alt="Check Icon"></img>Editar chamado
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  {showCadObs ? (
+                    <ObsCadastro index={index} />
+                  ) : (
+                    <button className="button" onClick={handleAddObs}>
+                      <img src={add} alt="Check Icon"></img>Incluir observação
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           ) : null}
         </div>
-      ) : <EditingPopup index={index} />}
+      ) : (
+        <EditingPopup index={index} />
+      )}
     </>
   );
 };
