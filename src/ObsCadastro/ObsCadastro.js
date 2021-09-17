@@ -3,7 +3,7 @@ import "./ObsCadastro.css";
 import { GlobalContext } from "../GlobalContext/GlobalContext";
 
 const ObsCadastro = ({ index }) => {
-  const { crs, teste } = React.useContext(GlobalContext);
+  const { teste } = React.useContext(GlobalContext);
   const [form, setForm] = React.useState({
     descricao: "",
   });
@@ -29,7 +29,7 @@ const ObsCadastro = ({ index }) => {
     }
   }
   return (
-    <form className="container" className="inForm">
+    <form className="container inForm">
       <label htmlFor="descricao">Descrição:</label>
       <input
         type="text"

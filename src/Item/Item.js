@@ -1,6 +1,5 @@
 import React from "react";
 import check from "../assets/check.png";
-import show from "../assets/show.png";
 import tool from "../assets/tools.png";
 import add from "../assets/add.png";
 import { GlobalContext } from "../GlobalContext/GlobalContext";
@@ -19,7 +18,6 @@ const Item = ({
   numeroCrs,
   data,
 }) => {
-  const currentCrs = React.useRef();
   const currentCircle = React.useRef();
   const { teste } = React.useContext(GlobalContext);
   const [showDesc, setShowDesc] = React.useState(false);

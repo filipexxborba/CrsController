@@ -3,7 +3,7 @@ import { GlobalContext } from "../GlobalContext/GlobalContext";
 
 const EditingPopup = ({ index, date }) => {
   const dateInput = React.useRef();
-  const { crs, teste } = React.useContext(GlobalContext);
+  const { teste } = React.useContext(GlobalContext);
   const [form, setForm] = React.useState({
     motivo: "",
     descricao: "",
@@ -19,7 +19,7 @@ const EditingPopup = ({ index, date }) => {
     form.descricao = data[index].descricao;
     form.responsavel = data[index].responsavel;
     form.numeroCrs = data[index].numeroCrs;
-  }, [index]);
+  }, [index, data, form]);
 
   // Alteração dos forms
   function handleChange({ target }) {
