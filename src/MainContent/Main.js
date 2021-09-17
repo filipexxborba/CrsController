@@ -11,7 +11,8 @@ const Main = () => {
     <div className="container">
       <h1>Controle de CRS - PHC & Santri</h1>
       <HeaderMain />
-      {!showCad ? <ListaCrs /> : null}
+      {!showCad ? <ListaCrs className="crsList" /> : null}
+      <div className='espaco'></div>
     </div>
   );
 };

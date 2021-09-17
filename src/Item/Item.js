@@ -30,7 +30,6 @@ const Item = ({
   // Mostrar/Esconder descrição
   function handleClick() {
     setShowDesc(!showDesc);
-    currentCrs.current.classList.toggle("active");
   }
 
   // Marcar como resolvido
@@ -90,12 +89,7 @@ const Item = ({
                 {nucleo} - {moment(data).format("DD/MM/YYYY")}
               </h3>
             </div>
-            <img
-              className="controlButton"
-              src={show}
-              alt="Show Icon"
-              ref={currentCrs}
-            ></img>
+            
           </div>
           {showDesc ? (
             <div>
@@ -106,9 +100,9 @@ const Item = ({
               </p>
               <h3 onClick={handleObservacao}>Observações:</h3>
               {!observacoes ? (
-                <ObservacaoList index={index} />
+                null
               ) : (
-                <p className="descricao">Não existe observação.</p>
+                <ObservacaoList index={index} />
               )}
               {!observacoes ? (
                 <div className="container-button">
