@@ -2,17 +2,29 @@ import React from "react";
 import { GlobalContext } from "../GlobalContext/GlobalContext";
 import HeaderMain from "../HeaderMain/HeaderMain";
 import ListaCrs from "../ListaCrs/ListaCrs";
-import './Main.css';
+import "./Main.css";
 
 const Main = () => {
-  const { showCad } = React.useContext(GlobalContext);
+  const { showCad, showDone, setShowDone } = React.useContext(GlobalContext);
+  function handleClick(event) {
+    event.preventDefault();
+    setShowDone(!showDone);
+  }
 
   return (
     <div className="container">
       <h1>Controle de CRS - PHC & Santri</h1>
       <HeaderMain />
       {!showCad ? <ListaCrs className="crsList" /> : null}
-      <div className='espaco'></div>
+      <div className="container">
+        <button className="buttonAdd" onClick={handleClick}>
+          {!showDone ? (
+            <p>Mostrar lista de resolvidos</p>
+          ) : (
+            <p>Mostrar lista de CRSs</p>
+          )}
+        </button>
+      </div>
     </div>
   );
 };

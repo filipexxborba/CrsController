@@ -19,7 +19,12 @@ const EditingPopup = ({ index, date }) => {
     form.descricao = data[index].descricao;
     form.responsavel = data[index].responsavel;
     form.numeroCrs = data[index].numeroCrs;
-  }, [index, data, form]);
+  }, []);
+
+  form.motivo = data[index].motivo;
+  form.descricao = data[index].descricao;
+  form.responsavel = data[index].responsavel;
+  form.numeroCrs = data[index].numeroCrs;
 
   // Alteração dos forms
   function handleChange({ target }) {
@@ -43,7 +48,7 @@ const EditingPopup = ({ index, date }) => {
       data[index].numeroCrs = form.numeroCrs;
       console.log(dateInput.current.value);
       console.log(data[index].data);
-      if(dateInput.current.value !== ''){
+      if (dateInput.current.value !== "") {
         data[index].data = dateInput.current.value;
       }
       console.log(data);

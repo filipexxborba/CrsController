@@ -19,7 +19,7 @@ const Item = ({
   data,
 }) => {
   const currentCircle = React.useRef();
-  const { teste } = React.useContext(GlobalContext);
+  const { teste, doneList, setDoneList } = React.useContext(GlobalContext);
   const [showDesc, setShowDesc] = React.useState(false);
   const [editing, setEditing] = React.useState(false);
   const [observacoes, setObservacoes] = React.useState(null);
@@ -34,9 +34,15 @@ const Item = ({
   function handleDelete(event) {
     event.preventDefault();
     let data = JSON.parse(localStorage.getItem("ListaCRSs"));
-    console.log(data, index);
+    let tempDone = doneList;
+    if(!tempDone){
+      tempDone = []
+    }
+    tempDone.push(data[index]);
+    setDoneList(tempDone);
     data.splice(index, 1);
     localStorage.setItem("ListaCRSs", JSON.stringify(data));
+    localStorage.setItem('ListaDone', JSON.stringify(tempDone));
     teste(data);
     window.location.reload();
   }
@@ -87,7 +93,6 @@ const Item = ({
                 {nucleo} - {moment(data).format("DD/MM/YYYY")}
               </h3>
             </div>
-            
           </div>
           {showDesc ? (
             <div>
@@ -97,11 +102,7 @@ const Item = ({
                 {responsavel !== " " ? responsavel : "Não informado"}.
               </p>
               <h3 onClick={handleObservacao}>Observações:</h3>
-              {!observacoes ? (
-                null
-              ) : (
-                <ObservacaoList index={index} />
-              )}
+              {!observacoes ? null : <ObservacaoList index={index} />}
               {!observacoes ? (
                 <div className="container-button">
                   <button className="button" onClick={handleDelete}>
