@@ -3,7 +3,7 @@ import "./ObsCadastro.css";
 import { GlobalContext } from "../GlobalContext/GlobalContext";
 
 const ObsCadastro = ({ index }) => {
-  const { teste } = React.useContext(GlobalContext);
+  const { apiURL } = React.useContext(GlobalContext);
   const [form, setForm] = React.useState({
     descricao: "",
   });
@@ -13,20 +13,21 @@ const ObsCadastro = ({ index }) => {
     setForm({ ...form, [id]: value });
   }
 
+  async function updateObs(id) {
+    const response = await fetch(
+      `${apiURL}/v1/updateobs/${index}&${form.descricao}`,
+      {
+        method: "PUT",
+      }
+    );
+    const responseJson = await response.json();
+    console.log(responseJson);
+  }
+
   function handleClick(event) {
     event.preventDefault();
-    let tempData = JSON.parse(localStorage.getItem("ListaCRSs"));
-    let currentCRS = tempData[index];
-    let currentCRSObs = currentCRS.observacoes;
-    if (form.descricao !== "") {
-      if (currentCRSObs === undefined) {
-        tempData[index].observacoes = [];
-      }
-      tempData[index].observacoes.push(form.descricao);
-      localStorage.setItem("ListaCRSs", JSON.stringify(tempData));
-      teste(tempData);
-      window.location.reload();
-    }
+    updateObs(index);
+    window.location.reload();
   }
   return (
     <form className="container inForm">

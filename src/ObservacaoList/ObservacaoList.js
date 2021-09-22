@@ -1,17 +1,35 @@
 import React from "react";
-import './ObservacaoList.css';
+import "./ObservacaoList.css";
+import { GlobalContext } from "../GlobalContext/GlobalContext";
 
 const ObservacaoList = ({ index }) => {
-  let localData = JSON.parse(localStorage.getItem("ListaCRSs"));
-  let tempObservacoes = localData[index].observacoes;
-  if (tempObservacoes === null || tempObservacoes === undefined) {
-    tempObservacoes = ['Não existe observação'];
+  const { apiURL } = React.useContext(GlobalContext);
+  const [obsList, setObsList] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  async function getCrs(id) {
+    setIsLoading(true);
+    const response = await fetch(`${apiURL}/v1/getcrs/${index}`);
+    const responseJson = await response.json();
+    setObsList(responseJson.observacoes);
+    setIsLoading(false);
   }
+
+  React.useEffect(() => {
+    getCrs(index);
+  }, []);
+
   return (
     <>
-      {tempObservacoes.map((item, index) => (
-        <li className="liObservacao" key={index}>{item}</li>
-      ))}
+      {isLoading ? (
+        <div className="liLoading"></div>
+      ) : (
+        obsList.map((item, index) => (
+          <li className="liObservacao" key={index}>
+            {item}
+          </li>
+        ))
+      )}
     </>
   );
 };

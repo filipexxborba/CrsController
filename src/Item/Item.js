@@ -19,11 +19,18 @@ const Item = ({
   data,
 }) => {
   const currentCircle = React.useRef();
-  const { teste, doneList, setDoneList } = React.useContext(GlobalContext);
+  const { apiURL } = React.useContext(GlobalContext);
   const [showDesc, setShowDesc] = React.useState(false);
   const [editing, setEditing] = React.useState(false);
   const [observacoes, setObservacoes] = React.useState(null);
   const [showCadObs, setShowCadObs] = React.useState(false);
+
+  async function resolverCrs(id) {
+    fetch(`${apiURL}/v1/updatecrs/${id}`, {
+      method: "PUT",
+    });
+    window.location.reload();
+  }
 
   // Mostrar/Esconder descrição
   function handleClick() {
@@ -33,18 +40,8 @@ const Item = ({
   // Marcar como resolvido
   function handleDelete(event) {
     event.preventDefault();
-    let data = JSON.parse(localStorage.getItem("ListaCRSs"));
-    let tempDone = doneList;
-    if(!tempDone){
-      tempDone = []
-    }
-    tempDone.push(data[index]);
-    setDoneList(tempDone);
-    data.splice(index, 1);
-    localStorage.setItem("ListaCRSs", JSON.stringify(data));
-    localStorage.setItem('ListaDone', JSON.stringify(tempDone));
-    teste(data);
-    window.location.reload();
+    resolverCrs(index);
+    // window.location.reload();
   }
 
   // Abrir a tela o popup de edição passando o index;

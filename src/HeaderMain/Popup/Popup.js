@@ -1,9 +1,9 @@
 import React from "react";
 import { GlobalContext } from "../../GlobalContext/GlobalContext";
-import './Form.css'
+import "./Form.css";
 
 const Popup = () => {
-  const { crs, teste } = React.useContext(GlobalContext);
+  const { apiURL } = React.useContext(GlobalContext);
   const [disabled, setDisabled] = React.useState(true);
   const [form, setForm] = React.useState({
     motivo: "",
@@ -12,6 +12,16 @@ const Popup = () => {
     numeroCrs: "",
   });
   const [select, setSelect] = React.useState("Compras");
+
+  async function cadastrar(titulo, descricao, responsavel, codigocrs, nucleo) {
+    fetch(
+      `${apiURL}/v1/createcrs/${titulo}&${descricao}&${responsavel}&${codigocrs}&${nucleo}`,
+      {
+        method: "POST",
+      }
+    );
+    window.location.reload();
+  }
 
   function handleChange({ target }) {
     if (
@@ -33,30 +43,13 @@ const Popup = () => {
       form.responsavel !== "" &&
       form.numeroCrs !== ""
     ) {
-      let data = crs;
-      if (!crs) {
-        data = [];
-      }
-      let today = new Date();
-      let tempData = {
-        nucleo: select,
-        motivo: form.motivo,
-        descricao: form.descricao,
-        responsavel: form.responsavel,
-        numeroCrs: form.numeroCrs,
-        data: today,
-      };
-      data.push(tempData);
-
-      localStorage.setItem("ListaCRSs", JSON.stringify(data));
-      teste(data);
-      form.descricao = "";
-      form.motivo = "";
-      form.numeroCrs = "";
-      form.responsavel = "";
-      setSelect("Compras");
-      setDisabled(true);
-      window.location.reload();
+      cadastrar(
+        form.motivo,
+        form.descricao,
+        form.responsavel,
+        form.numeroCrs,
+        select
+      );
     }
   }
   return (

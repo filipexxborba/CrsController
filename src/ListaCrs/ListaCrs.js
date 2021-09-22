@@ -14,12 +14,12 @@ const ListaCrs = () => {
             doneList.map((crs, index) => (
               <DoneItem
                 key={index}
-                index={index}
+                index={crs._id}
                 nucleo={crs.nucleo}
-                motivo={crs.motivo}
+                motivo={crs.titulo}
                 descricao={crs.descricao}
                 responsavel={crs.responsavel}
-                numeroCrs={crs.numeroCrs}
+                numeroCrs={crs.codigocrs}
                 data={crs.data}
               />
             ))
@@ -33,17 +33,17 @@ const ListaCrs = () => {
             crs.map((crs, index) => (
               <Item
                 key={index}
-                index={index}
+                index={crs._id}
                 nucleo={crs.nucleo}
-                motivo={crs.motivo}
+                motivo={crs.titulo}
                 descricao={crs.descricao}
                 responsavel={crs.responsavel}
-                numeroCrs={crs.numeroCrs}
-                data={crs.data}
+                numeroCrs={crs.codigocrs}
+                data={crs.date}
               />
             ))
           ) : (
-            <p>Não existe nenhuma CRS</p>
+            <p>Carregando lista de chamados!</p>
           )}
         </div>
       )}

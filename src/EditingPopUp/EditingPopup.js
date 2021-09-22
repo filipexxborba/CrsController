@@ -1,9 +1,10 @@
 import React from "react";
 import { GlobalContext } from "../GlobalContext/GlobalContext";
+import moment from "moment";
 
 const EditingPopup = ({ index, date }) => {
+  const { apiURL } = React.useContext(GlobalContext);
   const dateInput = React.useRef();
-  const { teste } = React.useContext(GlobalContext);
   const [form, setForm] = React.useState({
     motivo: "",
     descricao: "",
@@ -11,20 +12,38 @@ const EditingPopup = ({ index, date }) => {
     numeroCrs: "",
   });
   const [select, setSelect] = React.useState("Compras");
-  let data = JSON.parse(localStorage.getItem("ListaCRSs"));
+
+  // Pegar as informações
+  async function getCurrent(id) {
+    const response = await fetch(`${apiURL}/v1/getcrs/${id}`, {
+      method: "GET",
+    });
+    const jsonResponse = await response.json();
+    setSelect(jsonResponse.nucleo);
+    setForm({
+      motivo: jsonResponse.titulo,
+      descricao: jsonResponse.descricao,
+      responsavel: jsonResponse.responsavel,
+      numeroCrs: jsonResponse.codigocrs,
+    });
+    dateInput.current.value = moment(jsonResponse.date).format("yyyy-MM-DD");
+  }
+
+  // Dar update nas informações
+  async function updateCurrent(id) {
+    const tempDate = dateInput.current.value;
+    fetch(
+      `${apiURL}/v1/updateinfocrs/${index}&${form.motivo}&${form.descricao}&${form.responsavel}&${form.numeroCrs}&${select}&${tempDate}`,
+      {
+        method: "PUT",
+      }
+    );
+    window.location.reload();
+  }
 
   React.useEffect(() => {
-    setSelect(data[index].nucleo);
-    form.motivo = data[index].motivo;
-    form.descricao = data[index].descricao;
-    form.responsavel = data[index].responsavel;
-    form.numeroCrs = data[index].numeroCrs;
+    getCurrent(index);
   }, []);
-
-  form.motivo = data[index].motivo;
-  form.descricao = data[index].descricao;
-  form.responsavel = data[index].responsavel;
-  form.numeroCrs = data[index].numeroCrs;
 
   // Alteração dos forms
   function handleChange({ target }) {
@@ -41,20 +60,8 @@ const EditingPopup = ({ index, date }) => {
       form.responsavel !== "" &&
       form.numeroCrs !== ""
     ) {
-      data[index].nucleo = select;
-      data[index].motivo = form.motivo;
-      data[index].descricao = form.descricao;
-      data[index].responsavel = form.responsavel;
-      data[index].numeroCrs = form.numeroCrs;
-      console.log(dateInput.current.value);
-      console.log(data[index].data);
-      if (dateInput.current.value !== "") {
-        data[index].data = dateInput.current.value;
-      }
-      console.log(data);
-      localStorage.setItem("ListaCRSs", JSON.stringify(data));
-      teste(data);
-      window.location.reload();
+      updateCurrent(index);
+      // window.location.reload();
     }
   }
   return (

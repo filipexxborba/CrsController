@@ -17,7 +17,7 @@ const DoneItem = ({
   data,
 }) => {
   const currentCircle = React.useRef();
-  const { setDoneList } = React.useContext(GlobalContext);
+  const { apiURL } = React.useContext(GlobalContext);
   const [showDesc, setShowDesc] = React.useState(false);
   const [observacoes, setObservacoes] = React.useState(null);
   const [showCadObs, setShowCadObs] = React.useState(false);
@@ -27,13 +27,19 @@ const DoneItem = ({
     setShowDesc(!showDesc);
   }
 
+  async function deleteCrs(id) {
+    const response = await fetch(`${apiURL}/v1/deletecrs/${id}`, {
+      method: "DELETE",
+    });
+    const jsonResponse = await response.json();
+    console.log(jsonResponse);
+  }
+
   // Marcar como resolvido
   function handleDelete(event) {
     event.preventDefault();
-    let data = JSON.parse(localStorage.getItem("ListaDone"));
-    data.splice(index, 1);
-    localStorage.setItem("ListaDone", JSON.stringify(data));
-    setDoneList(data);
+    console.log("funcionando");
+    deleteCrs(index);
     window.location.reload();
   }
 
