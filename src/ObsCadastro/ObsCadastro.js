@@ -20,8 +20,6 @@ const ObsCadastro = ({ index }) => {
         method: "PUT",
       }
     );
-    const responseJson = await response.json();
-    console.log(responseJson);
   }
 
   function handleClick(event) {

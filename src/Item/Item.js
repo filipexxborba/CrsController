@@ -98,7 +98,7 @@ const Item = ({
                 Responsável:{" "}
                 {responsavel !== " " ? responsavel : "Não informado"}.
               </p>
-              <h3 onClick={handleObservacao}>Observações:</h3>
+              <h3 className="observacao-h3" onClick={handleObservacao}>{!observacoes ? "Observações" : "Esconder observações"}</h3>
               {!observacoes ? null : <ObservacaoList index={index} />}
               {!observacoes ? (
                 <div className="container-button">
@@ -115,7 +115,7 @@ const Item = ({
                   {showCadObs ? (
                     <ObsCadastro index={index} />
                   ) : (
-                    <button className="button" onClick={handleAddObs}>
+                    <button className="button button-incluir" onClick={handleAddObs}>
                       <img src={add} alt="Check Icon"></img>Incluir observação
                     </button>
                   )}

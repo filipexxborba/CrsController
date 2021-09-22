@@ -12,6 +12,7 @@ const ObservacaoList = ({ index }) => {
     const response = await fetch(`${apiURL}/v1/getcrs/${index}`);
     const responseJson = await response.json();
     setObsList(responseJson.observacoes);
+    console.log(responseJson);
     setIsLoading(false);
   }
 
