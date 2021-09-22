@@ -92,13 +92,13 @@ const Item = ({
             </div>
           </div>
           {showDesc ? (
-            <div>
+            <div className="descricaobox">
               <p className="descricao">{descricao}</p>
               <p className="descricao">
                 Responsável:{" "}
                 {responsavel !== " " ? responsavel : "Não informado"}.
               </p>
-              <h3 className="observacao-h3" onClick={handleObservacao}>{!observacoes ? "Observações" : "Esconder observações"}</h3>
+              <h3 className="observacao-h3" onClick={handleObservacao}>{!observacoes ? "Mostrar observações" : "Esconder observações"}</h3>
               {!observacoes ? null : <ObservacaoList index={index} />}
               {!observacoes ? (
                 <div className="container-button">

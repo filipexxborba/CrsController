@@ -1,26 +1,26 @@
-.liObservacao{
-    list-style-type: none;
-    font-weight: 300;
-    font-size: 14px;
-    color: #717171;
-    margin: 0px 0 16px;
-    max-width: 60ch;
+.liObservacao {
+  list-style-type: none;
+  font-weight: 300;
+  font-size: 14px;
+  color: #717171;
+  margin: 0px 0 16px;
+  max-width: 850px;
 }
 
-.liLoading{
-    margin: 16px 0;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border-top: 2px solid #7646ff;
-    animation: rotating360 1s infinite;
+.liLoading {
+  margin: 16px 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border-top: 2px solid #7646ff;
+  animation: rotating360 1s infinite;
 }
 
-@keyframes rotating360{
-    from{
-        transform: rotate(0deg);
-    }
-    to{
-        transform: rotate(360deg);
-    }
+@keyframes rotating360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -9,7 +9,7 @@ const ListaCrs = () => {
   return (
     <>
       {showDone ? (
-        <div>
+        <div className="container">
           {doneList ? (
             doneList.map((crs, index) => (
               <DoneItem
@@ -28,7 +28,7 @@ const ListaCrs = () => {
           )}
         </div>
       ) : (
-        <div>
+        <div className="container">
           {crs ? (
             crs.map((crs, index) => (
               <Item

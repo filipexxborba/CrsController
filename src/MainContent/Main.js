@@ -13,7 +13,6 @@ const Main = () => {
 
   return (
     <div className="container">
-      <h1>Controle de CRS - PHC & Santri</h1>
       <HeaderMain />
       {!showCad ? <ListaCrs className="crsList" /> : null}
       <div className="container">
